@@ -6,9 +6,15 @@ import torch.nn as nn
 from PIL import Image
 from fastapi import FastAPI, UploadFile, File, HTTPException
 from torchvision import transforms
-
+from fastapi.middleware.cors import CORSMiddleware
 app = FastAPI(title="CIFAR-10 Animal Classifier API")
-
+app.add_middleware(
+        CORSMiddleware,
+        allow_origins=["*"],
+        allow_credentials=True,
+        allow_methods=["*"],
+        allow_headers=["*"],
+)
 class AnimalCnn(nn.Module):
     def __init__(self):
         super().__init__()
